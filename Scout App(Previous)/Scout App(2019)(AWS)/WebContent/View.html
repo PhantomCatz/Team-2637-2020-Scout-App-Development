@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Scout App</title>
+	<script type="text/javascript" src="framework.js"></script>
+	<link rel="stylesheet" href="Style.css">
+</head>
+<body onload="selectTab()">
+	<div class="wrapper" id="wrapper">
+		<div class="page" id="page">
+			<div class="tab">
+				<button class="tablinks" onclick="openTab(event, 'general'); calculate();" id="startTab">General</button>
+				<button class="tablinks" onclick="openTab(event, 'sandstorm'); calculate();">Sandstorm</button>
+				<button class="tablinks" onclick="openTab(event, 'teleop'); calculate();">Teleop</button>
+				<button class="tablinks" onclick="openTab(event, 'endgame'); calculate();">Endgame</button>
+			</div>
+			
+			<div id="general" class="tabcontent"><br>
+				<form id="gForm">
+					<table class="table">
+						<tr>
+							<td class="left">Team Number:</td>
+							<td class="right">
+								<input id="teamNum" type="number" min="0">
+							</td>
+						</tr>
+						<tr>
+							<td class="left">Match Number:</td>
+							<td class="right">
+								<input id="matchNum" type="number" min="0" >
+							</td>
+						</tr>
+					</table>
+					<label>Not Functional/Didn't Show:
+						<input id="isValid" type="checkbox">
+					</label>
+					<table class="table">
+						<tr>
+							<td class="left">Starting Position</td>
+							<td class="right">
+								<select id="startingPos">
+									<option value="Left" >Left</option>
+									<option value="Middle">Middle</option>
+									<option value="Right">Right</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="left">Starting Level</td>
+							<td class="right">
+								<select id="startingLv">
+									<option value="Level 1" >Level 1</option>
+									<option value="Level 2">Level 2</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<button class="buttonNext" onclick="openTab(event, 'sandstorm'); calculate();">Next</button>
+			</div>
+		
+			<div id="sandstorm" class="tabcontent"><br>
+				<table class="key">
+					<tr>
+						<th>Key</th> 
+					</tr>
+					<tr>
+						<td>Blue = Hatch</td>
+					</tr>
+					<tr>
+						<td>Orange = Cargo</td>
+					</tr>
+				</table>
+				<form id="sForm">
+					<div class="tableDisplay">
+						<div class="displayRow">
+							<div class="displayCell">
+								<table>
+									<tr>
+										<th colspan="3">Left Rocket</th>
+									</tr>
+									<tr>
+										<td>Left</td>
+										<td>Middle</td>
+										<td>Right</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxL11" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="sSelectL12" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxL13" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxL21" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="sSelectL22" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxL23" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxL31" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="sSelectL32" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxL33" type="checkbox">
+											</label>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="displayCell">
+								<table style="border-right: 1px solid black; 
+											  border-left: 1px solid black;">
+									<tr>
+										<th colspan="4">Cargo Ship</th>	
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox11" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox12" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox13" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox14" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox21" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox22" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox23" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox24" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox31" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox32" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox33" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox34" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1"></td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox42" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="sCheckbox43" type="checkbox">
+											</label>
+										</td>
+										<td colspan="1"></td>
+									</tr>
+									<tr>
+										<td colspan="1"></td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox52" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckbox53" type="checkbox">
+											</label>
+										</td>
+										<td colspan="1"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="displayCell">
+								<table>
+									<tr>
+										<th colspan="3">Right Rocket</th>
+									</tr>
+									<tr>
+										<td>Left</td>
+										<td>Middle</td>
+										<td>Right</td>
+										</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxR11" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="sSelectR12" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxR13" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxR21" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="sSelectR22" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxR23" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxR31" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="sSelectR32" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="sCheckboxR33" type="checkbox">
+											</label>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div><br>
+					<label>Left, Middle, Right are from the perspective of the alliance drive station</label><br><br>
+					<label>Did it cross the line?:
+						<input id="isCrossedLine" type="checkbox">
+					</label><br><br>
+					<textarea id="sComment" rows="4" cols="50" placeholder="Comments"></textarea>
+				</form>
+				<button class="buttonNext" onclick="openTab(event, 'teleop'); calculate();">Next</button>
+			</div>
+		
+			<div id="teleop" class="tabcontent"><br>
+				<table class="key">
+					<tr>
+						<th>Key</th> 
+					</tr>
+					<tr>
+						<td>Blue = Hatch</td>
+					</tr>
+					<tr>
+						<td>Orange = Cargo</td>
+					</tr>
+				</table>
+				<form id="tForm">
+					<div class="tableDisplay">
+						<div class="displayRow">
+							<div class="displayCell">
+								<table>
+									<tr>
+										<th colspan="3">Left Rocket</th>
+									</tr>
+									<tr>
+										<td>Left</td>
+										<td>Middle</td>
+										<td>Right</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxL11" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="tSelectL12" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxL13" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxL21" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="tSelectL22" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxL23" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxL31" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="tSelectL32" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxL33" type="checkbox">
+											</label>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="displayCell">
+								<table style="border-right: 1px solid black; 
+											  border-left: 1px solid black;">
+									<tr>
+										<th colspan="4">Cargo Ship</th>	
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox11" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox12" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox13" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox14" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox21" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox22" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox23" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox24" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox31" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox32" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox33" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox34" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1"></td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox42" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: orange">
+												<input id="tCheckbox43" type="checkbox">
+											</label>
+										</td>
+										<td colspan="1"></td>
+									</tr>
+									<tr>
+										<td colspan="1"></td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox52" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckbox53" type="checkbox">
+											</label>
+										</td>
+										<td colspan="1"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="displayCell">
+								<table>
+									<tr>
+										<th colspan="3">Right Rocket</th>
+									</tr>
+									<tr>
+										<td>Left</td>
+										<td>Middle</td>
+										<td>Right</td>
+										</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxR11" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="tSelectR12" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxR13" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxR21" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="tSelectR22" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxR23" type="checkbox">
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxR31" type="checkbox">
+											</label>
+										</td>
+										<td>
+											<select id="tSelectR32" style="background-color: orange">
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+										</td>
+										<td>
+											<label style="background-color: cornflowerblue">
+												<input id="tCheckboxR33" type="checkbox">
+											</label>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div><br>	
+					<label>Left, Middle, Right are from the perspective of the alliance drive station</label><br>
+					<table class="table">
+						<tr>
+							<td class="left">Playstyle:</td>
+							<td class="right">
+								<select id="playstyle">
+									<option value="Scoring">Scoring</option>
+									<option value="Defense">Defense</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<label>Able to pick up ground Hatch? 
+						<input id="isGroundHatch" type="checkbox">
+					</label><br>
+					<label>Able to pick up ground Cargo? 
+						<input id="isGroundCargo" type="checkbox">
+					</label>
+					<table class="table">
+						<tr>
+							<td class="left">Highest Rocket Hatch Level Reached</td>
+							<td class="right">
+								<select id="hatchCleared">
+									<option value="Level 0">0</option>
+									<option value="Level 1">1</option>
+									<option value="Level 2">2</option>
+									<option value="Level 3">3</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="left">Highest Rocket Cargo Level Reached</td>
+							<td class="right">
+								<select id="cargoCleared">
+									<option value="Level 0">0</option>
+									<option value="Level 1">1</option>
+									<option value="Level 2">2</option>
+									<option value="Level 3">3</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<textarea id="tComment" rows="4" cols="50" placeholder="Comments"></textarea>
+				</form>
+				<button class="buttonNext" onclick="openTab(event, 'endgame'); calculate();">Next</button>
+			</div>
+		
+			<div id="endgame" class="tabcontent"><br>
+				<form id="eForm">
+					<table class="table">
+						<tr>
+							<td class="left">Time Taken to Climb: </td>
+							<td class="right">
+								<select id="timeClimb">
+									<option value="0">0</option>
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+									<option value="25">25</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="left">Climb Level</td>
+							<td class="right">
+								<select id="climbLv">
+									<option value="No climb">No climb</option>
+									<option value="Level 1">Lv 1</option>
+									<option value="Level 2">Lv 2</option>
+									<option value="Level 3">Lv 3</option>		
+								</select>
+							</td>
+						</tr>
+					</table>
+					<label>Assist Another? 
+						<input id="gotAssist" type="checkbox">
+					</label><br>
+					<label>Receive Assistance? 
+						<input id="assist" type="checkbox">
+					</label><br>
+					<br>
+					<textarea id="eComment" rows="4" cols="50" placeholder="Comments"></textarea>
+				</form>	
+				<button id="submitButton" class="buttonNext" onclick="submit(); calculate();">Submit</button>
+			</div>
+			<div class="tabcontent">
+				<div id="sFarRocketHatchNum"></div>
+				<div id="sFarRocketCargoNum"></div>
+				<div id="sCargoShipHatchNum"></div>
+				<div id="sCargoShipCargoNum"></div>
+				<div id="sCloseRocketHatchNum"></div>
+				<div id="sCloseRocketCargoNum"></div>
+				<div id="sTotalHatch"></div>
+				<div id="sTotalCargo"></div>
+				<div id="tFarRocketHatchNum"></div>
+				<div id="tFarRocketCargoNum"></div>
+				<div id="tCargoShipHatchNum"></div>
+				<div id="tCargoShipCargoNum"></div>
+				<div id="tCloseRocketHatchNum"></div>
+				<div id="tCloseRocketCargoNum"></div>
+				<div id="tTotalHatch"></div>
+				<div id="tTotalCargo"></div>
+				<div id="farRocketHatchNum"></div>
+				<div id="farRocketCargoNum"></div>
+				<div id="cargoShipHatchNum"></div>
+				<div id="cargoShipCargoNum"></div>
+				<div id="closeRocketHatchNum"></div>
+				<div id="closeRocketCargoNum"></div>
+				<div id="totalHatch"></div>
+				<div id="totalCargo"></div>			
+			</div>
+		</div>
+	</div>
+</body>
+</html>

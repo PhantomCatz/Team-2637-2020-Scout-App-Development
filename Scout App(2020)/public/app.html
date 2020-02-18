@@ -1,0 +1,412 @@
+﻿<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!--615 lines in total-->
+<head>
+    <meta charset="utf-8" />
+    <title>Scout App 2020</title>
+
+    <script defer src="/__/firebase/7.5.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="app.css" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+        //Initialize firebase
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                let app = firebase.app();
+                let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            } catch (e) {
+                console.error(e);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="alert" class="alert text-center display-none alert-danger"></div>
+    <div class="container-fluid">
+        <form id="form">
+            <div class="form-group row">
+                <div class="col-sm text-center">
+                    <h1>General</h1>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="scoutName" class="col-sm-3 col-form-label">
+                    Scouter Name
+                </label>
+                <input id="scoutName" name="Scouter" class="form-control col-sm-9 data-field data-validate">
+            </div>
+            <div class="form-group row">
+                <label for="teamNum" class="col-sm-3 col-form-label">
+                    Team Number
+                </label>
+                <select id="teamNum" name="TeamNumber" class="form-control col-sm-9 data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option value="2637">
+                        Team 2637
+                    </option>
+                    <option value="254">
+                        Team 254
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="matchType" class="col-sm-3 col-form-label">
+                    Match Type
+                </label>
+                <select id="matchType" name="MatchType" class="form-control col-sm-9 data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option value="Practice">
+                        Practice
+                    </option>
+                    <option value="Qualification">
+                        Qualification
+                    </option>
+                    <option value="Elimination">
+                        Elimination
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="matchNum" class="col-sm-3 col-form-label">
+                    Match Number
+                </label>
+                <input id="matchNum" name="MatchNumber" type="number" class="form-control col-sm-9 data-validate">
+            </div>
+            <div class="form-group row">
+                <label for="status" class="col-sm-3 col-form-label">
+                    Status
+                </label>
+                <select id="status" name="Status" class="form-control col-sm-9 data-field data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option value="Functional">
+                        Functional
+                    </option>
+                    <option value="Not Functional">
+                        Not Functional
+                    </option>
+                    <option value="No Show">
+                        No Show
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label for="totalShot" class="col-sm-3 col-form-label">
+                    Total Shots
+                </label>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', -5)">-5</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', -4)">-4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', -3)">-3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', -2)">-2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', -1)">-1</button>
+                <input id="totalShot" name="TotalShots" type="number" class="form-control col-sm text-center data-field data-clear" value="0" readonly>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', 1)">+1</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', 2)">+2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', 3)">+3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', 4)">+4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('totalShot', 5)">+5</button>
+            </div>
+            <div class="form-group row">
+                <label for='bottomPort' class="col-sm-3 col-form-label">
+                    Bottom Port
+                </label>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', -5); increment('totalShot', -5)">-5</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', -4); increment('totalShot', -4)">-4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', -3); increment('totalShot', -3)">-3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', -2); increment('totalShot', -2)">-2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', -1); increment('totalShot', -1)">-1</button>
+                <input id="bottomPort" name="BottomPort" type="number" class="form-control col-sm text-center data-field data-clear" value="0" readonly>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', 1); increment('totalShot', 1);">+1</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', 2); increment('totalShot', 2);">+2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', 3); increment('totalShot', 3)">+3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', 4); increment('totalShot', 4)">+4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('bottomPort', 5); increment('totalShot', 5)">+5</button>
+            </div>
+            <div class="form-group row">
+                <label for="outerPort" class="col-sm-3 col-form-label">
+                    Outer Port
+                </label>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', -5); increment('totalShot', -5)">-5</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', -4); increment('totalShot', -4)">-4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', -3); increment('totalShot', -3)">-3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', -2); increment('totalShot', -2)">-2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', -1); increment('totalShot', -1)">-1</button>
+                <input id="outerPort" name="OuterPort" type="number" class="form-control col-sm text-center data-field data-clear" value="0" readonly>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', 1); increment('totalShot', 1)">+1</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', 2); increment('totalShot', 2)">+2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', 3); increment('totalShot', 3)">+3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', 4); increment('totalShot', 4)">+4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('outerPort', 5); increment('totalShot', 5)">+5</button>
+            </div>
+            <div class="form-group row">
+                <label for="innerPort" class="col-sm-3 col-form-label">
+                    Inner Port
+                </label>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', -5); increment('totalShot', -5)">-5</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', -4); increment('totalShot', -4)">-4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', -3); increment('totalShot', -3)">-3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', -2); increment('totalShot', -2)">-2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', -1); increment('totalShot', -1)">-1</button>
+                <input id="innerPort" name="InnerPort" type="number" class="form-control col-sm text-center data-field data-clear" value="0" readonly>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', 1); increment('totalShot', 1)">+1</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', 2); increment('totalShot', 2)">+2</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', 3); increment('totalShot', 3)">+3</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', 4); increment('totalShot', 4)">+4</button>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('innerPort', 5); increment('totalShot', 5)">+5</button>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm text-center">
+                    <h1>Autonomous</h1>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row col-form-label">
+                <label for="initLine" class="col-sm-3">
+                    Moved from Initiation Line
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="initLine" name="InitiationLine" class="bigger data-field data-field data-clear" type="checkbox">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="startPos" class="col-sm-3 col-form-label">
+                    Starting Position
+                </label>
+                <select id="startPos" name="StartPosition" class="form-control col-sm-9 data-field data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option value="Left">
+                        Left
+                    </option>
+                    <option value="Middle">
+                        Middle
+                    </option>
+                    <option value="Right">
+                        Right
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm text-center">
+                    <h1>Teleoperated</h1>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="groundPickup" class="col-sm-3 form-form-label">
+                    Ground Pickup
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="groundPickup" name="GroundPickup" class="bigger data-field data-clear" type="checkbox">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="rotationControl" class="col-sm-3 form-form-label">
+                    Rotation Control
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="rotationControl" name="RotationControl" class="bigger data-field data-clear" type="checkbox">
+                </div>
+            </div>
+            <div class="form-group row tele">
+                <label for="positionControl" class="col-sm-3 form-form-label">
+                    Position Control
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="positionControl" name="PositionControl" class="bigger data-field data-clear" type="checkbox">
+                </div>
+                
+            </div>
+            <div class="form-group row">
+                <label for="rendezvousAbility" class="col-sm-3 form-form-label">
+                    Rendezvous Ability
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="rendezvousAbility" name="RandezvousAbility" class="bigger data-field data-clear" type="checkbox">
+                </div>
+            </div>
+            <div class="form-group row tele">
+                <label for="trenchAbility" class="col-sm-3 form-form-label">
+                    Trench Ability
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="trenchAbility" name="TrenchAbility" class="bigger data-field data-clear" type="checkbox">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="playstyle" class="col-sm-3 col-form-label">
+                    Playstyle
+                </label>
+                <select id="playstyle" name="Playstyle" class="form-control col-sm-9 data-field data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option value="Offensive">
+                        Offensive
+                    </option>
+                    <option value="Defensive">
+                        Defensive
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="range" class="col-sm-3 col-form-label">
+                    Range
+                </label>
+                <select id="range" name="Range" class="form-control col-sm-9 data-field data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option value="TargetZone">
+                        Target Zone
+                    </option>
+                    <option value="MiddleOfSector">
+                        Middle of Sector
+                    </option>
+                    <option value="InitiationLine">
+                        Initiation Line
+                    </option>
+                    <option value="FrontTrench">
+                        Front Trench
+                    </option>
+                    <option value="BackTrench">
+                        Back Trench
+                    </option>
+                    <option value="Other">
+                        Other
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm text-center">
+                    <h1>Endgame</h1>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="stage" class="col-sm-3 col-form-label">
+                    Stage Activated
+                </label>
+                <select id="stage" name="Stage" class="form-control col-sm-9 data-field data-validate data-clear">
+                    <option selected value="null">
+                        Choose . . .
+                    </option>
+                    <option selected value="none">
+                        None
+                    </option>
+                    <option value="Stage1">
+                        Stage 1
+                    </option>
+                    <option value="Stage2">
+                        Stage 2
+                    </option>
+                    <option value="Stage3">
+                        Stage 3
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="climbTime" class="col-sm-3 col-form-label">
+                    Climb Time
+                </label>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('climbTime', -1)">-1</button>
+                <input id="climbTime" name="ClimbTime" type="number" class="form-control col-sm-2 text-center data-field data-clear" value="0" readonly>
+                <button type="button" class="btn btn-primary col-sm" onclick="increment('climbTime', 1)">+1</button>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-sm-3 pt-0">
+                    Climb
+                </label>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="checkbox" name="Climb" id="NoClimb">
+                    <label class="form-check-label" for="NoClimb">
+                        No Climb
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="checkbox" name="Climb" id="AssistedClimb">
+                    <label class="form-check-label" for="AssistedClimb">
+                        Assisted Climb
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="checkbox" name="Climb" id="AssistedAnother">
+                    <label class="form-check-label" for="AssistedAnother">
+                        Assisted Another
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="latchAbility" class="col-sm-3 form-form-label">
+                    Latch Ability
+                </label>
+                <div class="col-sm-9 align">
+                    <input id="latchAbility" name="LatchAbility" class="bigger data-field data-clear" type="checkbox">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="comment" class="col-sm-3 col-form-label">
+                    Comment
+                </label>
+                <textarea id="comment" name="Comment" class="data-field col-sm-9 data-validate data-clear" rows="3"></textarea>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-sm-3">
+                    Rating
+                </label>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="radio" name="Rating" id="one" value="1">
+                    <label class="form-check-label" for="one">
+                        1
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="radio" name="Rating" id="two" value="2">
+                    <label class="form-check-label" for="two">
+                        2
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="radio" name="Rating" id="three" value="3">
+                    <label class="form-check-label" for="three">
+                        3
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="radio" name="Rating" id="four" value="4">
+                    <label class="form-check-label" for="four">
+                        4
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-sm justify-content-center">
+                    <input class="form-check-input bigger data-clear" type="radio" name="Rating" id="five" value="5">
+                    <label class="form-check-label" for="five">
+                        5
+                    </label>
+                </div>
+            </div>
+        </form>
+        <br />
+        <button id="submit" class="btn-block btn-lg" onclick="submit()">
+            Submit
+        </button>
+    </div>
+</body>
+</html>

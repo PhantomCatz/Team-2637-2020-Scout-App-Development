@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scouting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.5.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.5.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="database.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                let app = firebase.app();
+                let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            } catch (e) {
+                console.error(e);
+            }
+        });
+    </script>
+    <style>
+        body {
+            background-color: #b3ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <center>
+            <h1>General</h1>
+        </center>
+        <div id="general" class="tabcontent">
+            <br />
+            <form id="generalForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Scouter Name
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <input type="text" class="form-control" id="scoutName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Team Number
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="selectpicker form-control" data-live-search="true" id="teamNum">
+                            <option selected>
+                                Choose...
+                            </option>
+                            <option value="2637">
+                                2637
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Match Type
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="matchType">
+                            <option selected value="Null">
+                                Choose...
+                            </option>
+                            <option value="Practice">
+                                Practice
+                            </option>
+                            <option value="Qualification">
+                                Qualification
+                            </option>
+                            <option value="Elimination">
+                                Elimination
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Match Number
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <input type="number" class="form-control" id="matchNum" min="0">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Status
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="currentStatus">
+                            <option selected value="Null">
+                                Choose...
+                            </option>
+                            <option value="Functional">
+                                Functional
+                            </option>
+                            <option value="Not Functional">
+                                Not Functional
+                            </option>
+                            <option value="Didnt Show">
+                                Didnt Show
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Starting Level
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="startLevel">
+                            <option selected value="0">
+                                Choose...
+                            </option>
+                            <option value="1">
+                                Level 1
+                            </option>
+                            <option value="2">
+                                Level 2
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <br />
+        <center>
+            <h1>Sandstorm</h1>
+        </center>
+        <div id="sandstorm" class="tabcontent">
+            <br />
+            <form id="sandstormForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Rocket Hatches
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('SRocketHatch');">-</button>
+                            <input type="number" class="form-control text-center" id="SRocketHatch" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('SRocketHatch');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Rocket Cargo
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('SRocketCargo');">-</button>
+                            <input type="number" class="form-control text-center" id="SRocketCargo" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('SRocketCargo');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Cargoship Hatches
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('SCargoshipHatch');">-</button>
+                            <input type="number" class="form-control text-center" id="SCargoshipHatch" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('SCargoshipHatch');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Cargoship Cargo
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('SCargoshipCargo');">-</button>
+                            <input type="number" class="form-control text-center" id="SCargoshipCargo" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('SCargoshipCargo');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Comment
+                    </label>
+                    <textarea class="form-control" id="SComment" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <br />
+        <center>
+            <h1>Teleop</h1>
+        </center>
+        <div id="teleop" class="tabcontent">
+            <br />
+            <form id="teleopForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Rocket Hatches
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('TRocketHatch');">-</button>
+                            <input type="number" class="form-control text-center" id="TRocketHatch" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('TRocketHatch');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Rocket Cargo
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('TRocketCargo');">-</button>
+                            <input type="number" class="form-control text-center" id="TRocketCargo" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('TRocketCargo');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Cargoship Hatches
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('TCargoshipHatch');">-</button>
+                            <input type="number" class="form-control text-center" id="TCargoshipHatch" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('TCargoshipHatch');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Cargoship Cargo
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" onclick="decrement('TCargoshipCargo');">-</button>
+                            <input type="number" class="form-control text-center" id="TCargoshipCargo" min="0" value="0" readonly>
+                            <button type="button" class="btn btn-secondary" onclick="increment('TCargoshipCargo');">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Playstyle
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="playstyle">
+                            <option value="Scoring" selected>
+                                Scoring
+                            </option>
+                            <option value="Defense">
+                                Defense
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Highest Rocket Hatch Level Reached
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="highestRocket">
+                            <option selected value="">
+                                Choose...
+                            </option>
+                            <option value="0">
+                                None
+                            </option>
+                            <option value="1">
+                                Level 1
+                            </option>
+                            <option value="2">
+                                Level 2
+                            </option>
+                            <option value="3">
+                                Level 3
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Highest Rocket Cargo Level Reached
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="highestCargo">
+                            <option selected>
+                                Choose...
+                            </option>
+                            <option value="None">
+                                None
+                            </option>
+                            <option value="Level 1">
+                                Level 1
+                            </option>
+                            <option value="Level 2">
+                                Level 2
+                            </option>
+                            <option value="Level 3">
+                                Level 3
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        Able to pick up ground Hatch?
+                    </div>
+                    <div class="col-sm-9 my-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="groundHatch">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        Able to pick up ground Cargo?
+                    </div>
+                    <div class="col-sm-9 my-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="groundCargo">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Comments
+                    </label>
+                    <textarea class="form-control" id="TComment" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <br />
+        <center>
+            <h1>Endgame</h1>
+        </center>
+        <div id="endgame" class="tabcontent">
+            <br />
+            <form id="endgameForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Time Taken to Climb
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="climbTime">
+                            <option selected>
+                                Choose...
+                            </option>
+                            <option value="">
+                                No Climb
+                            </option>
+                            <option value="1">
+                                1
+                            </option>
+                            <option value="5">
+                                5
+                            </option>
+                            <option value="10">
+                                10
+                            </option>
+                            <option value="15">
+                                15
+                            </option>
+                            <option value="20">
+                                20
+                            </option>
+                            <option value="25">
+                                25
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        Climb Level
+                    </label>
+                    <div class="col-sm-9 my-auto">
+                        <select class="custom-select" id="climbLevel">
+                            <option selected>
+                                Choose...
+                            </option>
+                            <option value="No Climb">
+                                No Climb
+                            </option>
+                            <option value="Level 1">
+                                Level 1
+                            </option>
+                            <option value="Level 2">
+                                Level 2
+                            </option>
+                            <option value="Level 3">
+                                Level 3
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        Assisted another bot in Climb?
+                    </div>
+                    <div class="col-sm-9 my-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="assisting">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        Received Assistance from other bot in Climb?
+                    </div>
+                    <div class="col-sm-9 my-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="assisted">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Comments
+                    </label>
+                    <textarea class="form-control" id="EComment" rows="3"></textarea>
+                </div>
+            </form>
+            <button style="float:left" onclick="test(); resetPage();">
+                Test
+            </button>
+            <button style="float:right" onclick="calculate(); resetPage();">
+                Submit
+            </button>
+        </div>
+    </div>
+    </body>
+</html>

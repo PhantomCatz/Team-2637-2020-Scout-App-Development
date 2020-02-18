@@ -1,0 +1,85 @@
+@charset "ISO-8859-1";
+
+body {
+	background-color: #CAFCE3;
+}
+
+.wrapper {
+  padding: 20px;
+  resize: both;
+  position: relative;
+  height: 400px;
+}
+
+.page {
+  width: 600px;
+  height: 400px;
+  padding: 50px;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.tab button:hover {
+    background-color: #FEFEFE;
+}
+
+.tab button.active {
+    background-color: #01CCFE;
+}
+
+.tab button {
+	background-color: #B7D6FE;
+}
+
+.table {
+	border-spacing: 10px;
+	margin: auto;
+}
+
+.table td.right {
+	text-align: left;
+}
+
+.table td.left {
+	text-align: right;
+}
+
+.buttonNext {
+	position: absolute;
+	right: 0px;
+}
+
+.tableDisplay {
+	display: table;
+	margin: auto;
+}
+
+.displayRow {
+	display: table-row;
+}
+
+.displayCell {
+	display: table-cell;	
+}
+
+.displayCell td {
+	width: 35px;
+}
+
+.displayCell table {
+	padding: 10px;
+}
+
+.key {
+	position: absolute;
+	margin: 0px;
+	right: 0;
+	top: 100px;
+	border: 1px solid black;
+}

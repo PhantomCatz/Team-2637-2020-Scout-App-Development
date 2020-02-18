@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Index</title>
+
+    <script defer src="/__/firebase/7.5.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.5.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Scout App">
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/images/TeamLogoVertical-128x128.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/TeamLogoVertical-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/TeamLogoVertical-152x152.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/TeamLogoVertical-192x192.png">
+    <link rel="apple-touch-icon" sizes="256x256" href="/images/TeamLogoVertical-256x256.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/TeamLogoVertical-512x512.png">
+    <meta name="theme-color" content="#2F3BA2" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                let app = firebase.app();
+                let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            } catch (e) {
+                console.error(e);
+            }
+        });
+        /*
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((reg) => {
+                        console.log('Service worker registered.', reg);
+                    });
+            });
+        }
+        const isIos = () => {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test( userAgent );
+        }
+        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+        if (isIos() && !isInStandaloneMode()) {
+            this.setState({ showInstallMessage: true });
+        }
+        */
+    </script>
+</head>
+<body onload="init()">
+    <div class="container-fluid body">
+        <div class="row">
+            <div class="col-sm-2 green">
+                <select id="matchType" class="form-control">
+                    <option selected value="Overall">
+                        Overall
+                    </option>
+                    <option value="Practice">
+                        Practice
+                    </option>
+                    <option value="Qualification">
+                        Qualification
+                    </option>
+                    <option value="Elimination">
+                        Elimination
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-10 blue">
+                <div class="btn-group d-flex">
+                    <button type="button" class="btn btn-primary col-sm" onclick="contentControl3('customGraph')">Graph</button>
+                    <button type="button" class="btn btn-secondary col-sm" onclick="contentControl3('customTable')">Table</button>
+                    <button type="button" class="btn btn-info col-sm" onclick="contentControl3('customComment')">Comment</button>
+                    <a href="app.html" class="btn abutton col-sm">Form</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 red" id="teamList">
+                <input type="number" id="search" class="form-control row" style="margin-left: auto; margin-right: auto">
+            </div>
+            <div class="col-sm-10 yellow" id="content">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

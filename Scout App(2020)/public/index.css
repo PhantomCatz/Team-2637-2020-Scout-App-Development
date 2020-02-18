@@ -1,0 +1,48 @@
+﻿.body {
+    background-color: #b3ffff;
+}
+
+.green {
+    background-color: lightgreen
+}
+
+.blue {
+    background-color: lightskyblue
+}
+
+.red {
+    background-color: palevioletred
+}
+
+.yellow {
+    background-color: lightyellow
+}
+
+.customGraph {
+    background-color: #007bff
+}
+
+.customTable {
+    background-color: #6c757d
+}
+
+.customComment {
+    background-color: #17a2b8
+}
+
+.commentTD {
+    word-break: break-word;
+    vertical-align: top;
+    text-align: center;
+}
+
+.tableTD {
+    text-align: center
+}
+
+a.abutton {
+    height: 100%;
+    width: 100%;
+    background: #ffc107;
+    color: black;
+}
